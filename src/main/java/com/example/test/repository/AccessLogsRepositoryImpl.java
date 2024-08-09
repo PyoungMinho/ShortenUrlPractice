@@ -2,6 +2,9 @@ package com.example.test.repository;
 
 import com.example.test.model.accessLogs;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +18,12 @@ public class AccessLogsRepositoryImpl implements AccessLogsRepository {
     @Override
     public List<accessLogs> findByUrlId(Long urlId) {
         return accessLogsJpaRepository.findByUrlId(urlId);
+    }
+
+
+    @Override
+    public Page<accessLogs> findByUrlIdWithPage(Long urlId, Pageable pageable) {
+        Page<accessLogs> accessLogsResult = accessLogsJpaRepository.findyByUrlIdWithPage(urlId, pageable);
+        return accessLogsResult;
     }
 }

@@ -2,6 +2,7 @@ package com.example.test.controller;
 
 import com.example.test.dto.GetAccessLogResponse;
 import com.example.test.dto.GetUrlsResponse;
+import com.example.test.model.accessLogs;
 import com.example.test.model.urls;
 import com.example.test.repository.AccessLogsRepositoryImpl;
 import com.example.test.repository.UrlRepositoryImpl;
@@ -12,6 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -57,6 +62,11 @@ public class UrlController {
         return ApiResponse.ok(accessLogResponseList);
     }
 
+    @GetMapping("/shorten/log/info/page")
+    public ApiResponse<List<GetAccessLogResponse>> getAccessLogWithPage(@RequestParam("url") String url,
+                                                              @PageableDefault(value = 10, sort = {"ip"}, direction = Sort.Direction.ASC) Pageable pageable) {
+        return ApiResponse.ok(urlService.accessLogsWithPage(url, pageable));
+    }
 
     @GetMapping("/shorten/{shortUrl}")
     public void redirect(@PathVariable("shortUrl") String shortUrl, HttpServletRequest request, HttpServletResponse response) throws IOException {

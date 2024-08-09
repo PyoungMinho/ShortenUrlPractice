@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -92,6 +95,12 @@ public class UrlService {
         return accessLogsList.stream().map(GetAccessLogResponse::of).collect(Collectors.toList());
     }
 
+    public List<GetAccessLogResponse> accessLogsWithPage(String originalUrl, Pageable pageable) {
+        urls urls = urlRepository.findByUrl(originalUrl);
+        Page<accessLogs> accessLogsPage = accessLogsRepository.findByUrlIdWithPage(urls.getId(), pageable);
+        return accessLogsPage.stream().map(GetAccessLogResponse::of).collect(Collectors.toList());
+    }
+
     public GetUrlsResponse findUrlsInfoByUrl(String originalUrl) {
         urls urls = urlRepository.findByUrl(originalUrl);
         urls.updateLastedClick(LocalDateTime.now());
@@ -116,4 +125,6 @@ public class UrlService {
         urlJpaRepository.save(searchUrls);
 
     }
+
+
 }
