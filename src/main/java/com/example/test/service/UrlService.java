@@ -98,7 +98,14 @@ public class UrlService {
     public List<GetAccessLogResponse> accessLogsWithPage(String originalUrl, Pageable pageable) {
         urls urls = urlRepository.findByUrl(originalUrl);
         Page<accessLogs> accessLogsPage = accessLogsRepository.findByUrlIdWithPage(urls.getId(), pageable);
-        return accessLogsPage.stream().map(GetAccessLogResponse::of).collect(Collectors.toList());
+
+        int pageNumber = accessLogsPage.getNumber();
+        int pageSize = accessLogsPage.getSize();
+        int totalPages = accessLogsPage.getTotalPages();
+
+        return accessLogsPage.stream()
+                .map(accessLog -> GetAccessLogResponse.of(accessLog, pageNumber, pageSize, totalPages))
+                .collect(Collectors.toList());
     }
 
     public GetUrlsResponse findUrlsInfoByUrl(String originalUrl) {
