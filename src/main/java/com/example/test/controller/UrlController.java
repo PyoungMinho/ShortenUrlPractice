@@ -65,7 +65,8 @@ public class UrlController {
     @GetMapping("/shorten/log/info/page")
     public ApiResponse<List<GetAccessLogResponse>> getAccessLogWithPage(@RequestParam("url") String url,
                                                               @PageableDefault(value = 10, sort = {"ip"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        return ApiResponse.ok(urlService.accessLogsWithPage(url, pageable));
+        List<GetAccessLogResponse> accessLogResponseList = urlService.accessLogsWithPage(url, pageable);
+        return ApiResponse.ok(accessLogResponseList);
     }
 
     @GetMapping("/shorten/{shortUrl}")
