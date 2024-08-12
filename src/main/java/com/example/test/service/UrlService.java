@@ -1,6 +1,5 @@
 package com.example.test.service;
 
-
 import com.example.test.dto.GetAccessLogResponse;
 import com.example.test.dto.GetUrlsResponse;
 import com.example.test.model.accessLogs;
@@ -8,7 +7,6 @@ import com.example.test.model.urls;
 import com.example.test.repository.AccessLogsRepository;
 import com.example.test.repository.UrlJpaRepository;
 import com.example.test.repository.UrlRepository;
-import com.example.test.repository.UrlRepositoryImpl;
 import com.example.test.utils.Base62;
 import com.example.test.utils.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

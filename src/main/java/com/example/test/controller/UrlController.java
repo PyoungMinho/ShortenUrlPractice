@@ -2,25 +2,18 @@ package com.example.test.controller;
 
 import com.example.test.dto.GetAccessLogResponse;
 import com.example.test.dto.GetUrlsResponse;
-import com.example.test.model.accessLogs;
-import com.example.test.model.urls;
-import com.example.test.repository.AccessLogsRepositoryImpl;
-import com.example.test.repository.UrlRepositoryImpl;
 import com.example.test.service.UrlService;
 import com.example.test.utils.ApiResponse;
-import com.example.test.utils.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
