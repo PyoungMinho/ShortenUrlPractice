@@ -31,8 +31,8 @@ public class urls{
     private LocalDateTime lastedClicked;
 
     @OneToMany(mappedBy = "urls" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<accessLogs> accessLogsList = new ArrayList<>();
-
+    private List<accessLogs> accessLogsList = new ArrayList<>(); // 연관관계의 주인이 아닌 객체에서 mappedBy 속성을 사용해서 주인을 지정해준다.
+    // TIP 외래 키(FK)가 있는 곳을 연간관계의 주인으로 정한다.
     public void updateShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
