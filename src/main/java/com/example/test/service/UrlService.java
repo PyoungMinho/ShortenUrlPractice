@@ -7,6 +7,7 @@ import com.example.test.model.urls;
 import com.example.test.repository.AccessLogsRepository;
 import com.example.test.repository.UrlJpaRepository;
 import com.example.test.repository.UrlRepository;
+import com.example.test.utils.ApiResponse;
 import com.example.test.utils.Base62;
 import com.example.test.utils.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,13 +34,17 @@ public class UrlService {
 
 
     @Transactional
-    public boolean checExistkUrl(String originalUrl) {
+    public ApiResponse<String> checExistkUrl(String originalUrl, HttpServletRequest request) {
         urls existUrl = urlRepository.findByUrl(originalUrl);
 
         if (existUrl == null) {
-            return true;
+            createShortUrl(originalUrl);
+            addUrlsAccessLogs(originalUrl,request);
+            return ApiResponse.create();
         } else {
-            return false;
+            modifyUrl(originalUrl);
+            addUrlsAccessLogs(originalUrl,request);
+            return ApiResponse.ok("이미 등록된 url");
         }
     }
 
@@ -129,6 +134,5 @@ public class UrlService {
         urlJpaRepository.save(searchUrls);
 
     }
-
 
 }

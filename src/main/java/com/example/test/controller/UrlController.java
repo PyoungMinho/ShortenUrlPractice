@@ -31,16 +31,20 @@ public class UrlController {
 
     @PostMapping("/shorten")
     public ApiResponse<String> createShortUrl(@RequestParam("url") String destinationUrl, HttpServletRequest request){
-        boolean urlExist = urlService.checExistkUrl(destinationUrl);
-        if(urlExist){
-            urlService.createShortUrl(destinationUrl);
-            urlService.addUrlsAccessLogs(destinationUrl,request);
-            return ApiResponse.create();
-        }else{
-            urlService.modifyUrl(destinationUrl);
-            urlService.addUrlsAccessLogs(destinationUrl,request);
-            return ApiResponse.ok("이미 등록된 url");
-        }
+        //TO-DO 분기처리를 컨트롤러단에서 제거하기
+//        boolean urlExist = urlService.checExistkUrl(destinationUrl,request);
+//
+//        if(urlExist){
+//            urlService.createShortUrl(destinationUrl);
+//            urlService.addUrlsAccessLogs(destinationUrl,request);
+//            return ApiResponse.create();
+//        }else{
+//            urlService.modifyUrl(destinationUrl);
+//            urlService.addUrlsAccessLogs(destinationUrl,request);
+//            return ApiResponse.ok("이미 등록된 url");
+//        }
+        ApiResponse<String> response = urlService.checExistkUrl(destinationUrl,request);
+        return response ;
     }
 
     @GetMapping("/shorten/url/info")
