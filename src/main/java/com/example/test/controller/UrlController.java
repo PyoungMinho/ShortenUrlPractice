@@ -43,7 +43,7 @@ public class UrlController {
 //            urlService.addUrlsAccessLogs(destinationUrl,request);
 //            return ApiResponse.ok("이미 등록된 url");
 //        }
-        ApiResponse<String> response = urlService.checExistkUrl(destinationUrl,request);
+        ApiResponse<String> response = urlService.checExistkUrl(destinationUrl,request); // 쉬운 코드파악을 위해 인라인 X
         return response ;
     }
 
