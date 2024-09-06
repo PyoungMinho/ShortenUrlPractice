@@ -31,7 +31,7 @@ public class UrlController {
 
     @PostMapping("/shorten")
     public ApiResponse<String> createShortUrl(@RequestParam("url") String destinationUrl, HttpServletRequest request){
-        //TO-DO 분기처리를 컨트롤러단에서 제거하기
+        //TODO 분기처리를 컨트롤러단에서 제거하기 done!
 //        boolean urlExist = urlService.checExistkUrl(destinationUrl,request);
 //
 //        if(urlExist){
