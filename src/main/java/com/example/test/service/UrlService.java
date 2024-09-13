@@ -37,7 +37,7 @@ public class UrlService {
     public ApiResponse<String> checExistkUrl(String originalUrl, HttpServletRequest request) {
         urls existUrl = urlRepository.findByUrl(originalUrl);
 
-        if (existUrl == null) {
+        if (existUrl == null) { //내부 분기
             createShortUrl(originalUrl);
             addUrlsAccessLogs(originalUrl,request);
             return ApiResponse.create();
