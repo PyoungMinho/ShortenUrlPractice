@@ -61,12 +61,7 @@ public class UrlService {
 
     @Transactional
     public void createShortUrl(String originalUrl) {
-
-        urls urlShorten = urls.builder()
-                .destinationUrl(originalUrl)
-                .totalClick(1L)
-                .createdAt(LocalDateTime.now())
-                .build();
+        urls urlShorten = getUrls(originalUrl);
 
         urlJpaRepository.save(urlShorten);
 
@@ -76,6 +71,15 @@ public class UrlService {
 
         urlShorten.updateShortUrl(encodedUrl);
 
+    }
+
+    private static urls getUrls(String originalUrl) {
+        urls urlShorten = urls.builder()
+                .destinationUrl(originalUrl)
+                .totalClick(1L)
+                .createdAt(LocalDateTime.now())
+                .build();
+        return urlShorten;
     }
 
     public String getOriginalUrlByShortUrl(String shortenUrl) {
