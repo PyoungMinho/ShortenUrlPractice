@@ -31,27 +31,23 @@ public class UrlController {
 
     @PostMapping("/shorten")
     public ApiResponse<String> createShortUrl(@RequestParam("url") String destinationUrl, HttpServletRequest request){
-        ApiResponse<String> response = urlService.checExistkUrl(destinationUrl,request); // 쉬운 코드파악을 위해 인라인 X
-        return response ;
+        return urlService.checExistkUrl(destinationUrl,request);
     }
 
     @GetMapping("/shorten/url/info")
     public ApiResponse<GetUrlsResponse> showUrlInfo(@RequestParam("url") String originalUrl, HttpServletRequest request){
-        GetUrlsResponse response = urlService.findUrlsInfoByUrl(originalUrl);
-        return ApiResponse.ok(response);
+        return ApiResponse.ok(urlService.findUrlsInfoByUrl(originalUrl));
     }
 
     @GetMapping("/shorten/log/info")
     public ApiResponse<List<GetAccessLogResponse>> getAccessLog(@RequestParam("url") String url){
-        List<GetAccessLogResponse> accessLogResponseList = urlService.findAccessLogByUrl(url);
-        return ApiResponse.ok(accessLogResponseList);
+        return ApiResponse.ok(urlService.findAccessLogByUrl(url));
     }
 
     @GetMapping("/shorten/log/info/page")
     public ApiResponse<List<GetAccessLogResponse>> getAccessLogWithPage(@RequestParam("url") String url,
                                                               @PageableDefault(value = 10, sort = {"ip"}, direction = Sort.Direction.ASC) Pageable pageable) {
-        List<GetAccessLogResponse> accessLogResponseList = urlService.accessLogsWithPage(url, pageable);
-        return ApiResponse.ok(accessLogResponseList);
+        return ApiResponse.ok(urlService.accessLogsWithPage(url, pageable));
     }
 
     @GetMapping("/shorten/{shortUrl}")
