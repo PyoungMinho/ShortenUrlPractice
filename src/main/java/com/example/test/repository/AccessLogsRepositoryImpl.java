@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class AccessLogsRepositoryImpl implements AccessLogsRepository {
+public class AccessLogsRepositoryImpl implements AccessLogsRepository { // Optional을 제거해서 사용하기 위한 repo구조
 
     private final AccessLogsJpaRepository accessLogsJpaRepository;
 
