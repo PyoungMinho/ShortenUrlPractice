@@ -53,8 +53,12 @@ public class UrlController {
     @GetMapping("/shorten/{shortUrl}")
     public void redirect(@PathVariable("shortUrl") String shortUrl, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String destinationUrl = urlService.getOriginalUrlByShortUrl(shortUrl);
+        extracted(response, destinationUrl); // 메서드로 추출
+        urlService.addUrlsAccessLogs(destinationUrl,request);
+    }
+
+    private void extracted(HttpServletResponse response, String destinationUrl) throws IOException {
         String encodeURL = response.encodeRedirectURL(destinationUrl);
         response.sendRedirect(encodeURL);
-        urlService.addUrlsAccessLogs(destinationUrl,request);
     }
 }
