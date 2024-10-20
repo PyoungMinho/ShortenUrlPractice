@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+/*repo 구조에 대한 리팩토링 생각해보도록 하자!*/
 @Repository
 public interface AccessLogsJpaRepository extends JpaRepository<accessLogs,Long> {
 
